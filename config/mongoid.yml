@@ -1,0 +1,22 @@
+development:
+  sessions:
+    default:
+      database: flash_message_service_dev
+      hosts:
+        - localhost:27017
+
+test:
+  sessions:
+    default:
+      database: flash_message_service_test
+      hosts:
+        - localhost:27017
+
+production:
+  sessions:
+    default:
+      # hosts:
+      #   - oceanic.mongohq.com:10067
+      # database: app25222452
+      # username: organization_service
+      # password: worldisrightasrain
