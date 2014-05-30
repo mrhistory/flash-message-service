@@ -22,6 +22,58 @@ get '/' do
   'Welcome to the Flash Message Service!'
 end
 
+post '/messages/.json' do
+  begin
+    message = FlashMessage.new(json_params)
+    if message.save
+      message.to_json
+    else
+      halt 500, message.errors.full_messages[0]
+    end
+  rescue Exception => e
+    halt 500, e.message
+  end
+end
+
+get '/messages/:id.json' do
+  begin
+    message = FlashMessage.find(params[:id])
+    if message.nil?
+      raise Exception, 'Flash Message not found.'
+    else
+      message.to_json
+    end
+  rescue Exception => e
+    halt 500, e.message
+  end
+end
+
+put '/messages/:id.json' do
+  begin
+    message = FlashMessage.find(params[:id])
+    if message.update_attributes!(json_params)
+      message.to_json
+    else
+      halt 500, message.errors.full_messages[0]
+    end
+  rescue Exception => e
+    halt 500, e.message
+  end
+end
+
+delete '/messages/:id.json' do
+  begin
+    message = FlashMessage.find(params[:id])
+    if message.destroy
+      { :id => message.id, :deleted => true }.to_json
+    else
+      halt 500, message.errors.full_messages[0]
+    end
+  rescue Exception => e
+    halt 500, e.message
+  end
+end
+
 
 private
 
