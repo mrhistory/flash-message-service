@@ -38,4 +38,12 @@ describe 'Flash Message Service' do
     response[:deleted].should eq(true)
     FlashMessage.where(id: message.id).exists?.should eq(false)
   end
+
+  it 'should return the flash messages' do
+    mess1 = create(:flash_message, message: 'Message 1')
+    mess2 = create(:flash_message, message: 'Message 2')
+    get '/messages/.json'
+    response = parse_json(last_response.body)
+    response[0][:message].should eq(mess1[:message])
+  end
 end

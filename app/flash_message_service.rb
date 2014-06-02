@@ -22,6 +22,22 @@ get '/' do
   'Welcome to the Flash Message Service!'
 end
 
+get '/messages/.json' do
+  begin
+    FlashMessage.all.to_json
+  rescue Exception => e
+    halt 500, e.message
+  end
+end
+
+get "/messages/:organization/:application/:expired?/.json" do
+  begin
+    FlashMessage.search(params[:organization], params[:application], params[:expired?]).to_json
+  rescue Exception => e
+    halt 500, e.message
+  end
+end
+
 post '/messages/.json' do
   begin
     message = FlashMessage.new(json_params)
