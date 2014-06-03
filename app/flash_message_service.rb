@@ -30,9 +30,9 @@ get '/messages/.json' do
   end
 end
 
-get "/messages/:organization/:application/:expired?/.json" do
+get "/messages/:organization/:application/:include_expired/.json" do
   begin
-    FlashMessage.search(params[:organization], params[:application], params[:expired?]).to_json
+    FlashMessage.search(params[:organization], params[:application], params[:include_expired]).to_json
   rescue Exception => e
     halt 500, e.message
   end
