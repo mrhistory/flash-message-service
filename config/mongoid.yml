@@ -15,8 +15,8 @@ test:
 production:
   sessions:
     default:
-      # hosts:
-      #   - oceanic.mongohq.com:10067
-      # database: app25222452
-      # username: organization_service
-      # password: worldisrightasrain
+      hosts:
+        - kahana.mongohq.com:10029
+      database: app25980312
+      username: flash_message_service
+      password: beginatthebeginning
